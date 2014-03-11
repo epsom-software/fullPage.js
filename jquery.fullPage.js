@@ -62,7 +62,7 @@
 		$.fn.fullpage.setAutoScrolling = function(value){
 			options.autoScrolling = value;
 			
-			var element = $('.section.active');
+			var element = $('section.active');
 				
 			if(options.autoScrolling){
 				$('html, body').css({
@@ -156,13 +156,13 @@
 			nav.addClass(options.navigationPosition);
 		}
 		
-		$('.section').each(function(index){
+		$('section').each(function(index){
 			var that = $(this);
 			var slides = $(this).find('.slide');
 			var numSlides = slides.length;
 			
 			//if no active section is defined, the 1st one will be the default one
-			if(!index && $('.section.active').length === 0) {
+			if(!index && $('section.active').length === 0) {
 				$(this).addClass('active');
 			}
 
@@ -248,11 +248,11 @@
 
 
 			//the starting point is a slide? 
-			var activeSlide = $('.section.active').find('.slide.active');
+			var activeSlide = $('section.active').find('.slide.active');
 			if(activeSlide.length){
 				var prevScrollingSpeepd = options.scrollingSpeed;
 				$.fn.fullpage.setScrollingSpeed (0);
-				landscapeScroll($('.section.active').find('.slides'), activeSlide);
+				landscapeScroll($('section.active').find('.slides'), activeSlide);
 				$.fn.fullpage.setScrollingSpeed(prevScrollingSpeepd);
 			}
 			
@@ -264,7 +264,7 @@
 			//vertical centered of the navigation + first bullet active
 			if(options.navigation){
 				nav.css('margin-top', '-' + (nav.height()/2) + 'px');
-				nav.find('li').eq($('.section.active').index('.section')).find('a').addClass('active');
+				nav.find('li').eq($('section.active').index('section')).find('a').addClass('active');
 			}
 			
 			//moving the menu outside the main container (avoid problems with fixed positions when using CSS3 tranforms)
@@ -276,7 +276,7 @@
 				//after DOM and images are loaded 
 				$(window).on('load', function() {
 					
-					$('.section').each(function(){
+					$('section').each(function(){
 						var slides = $(this).find('.slide');
 						
 						if(slides.length){
@@ -304,7 +304,7 @@
 
 				if(!options.animateAnchor && section.length){ 
 					silentScroll(section.position().top);
-					$.isFunction( options.afterLoad ) && options.afterLoad.call( this, destiny, (section.index('.section') + 1));
+					$.isFunction( options.afterLoad ) && options.afterLoad.call( this, destiny, (section.index('section') + 1));
 
 					//updating the active class
 					section.addClass('active').siblings().removeClass('active');
@@ -327,7 +327,7 @@
 			if(!options.autoScrolling){					
 				var currentScroll = $(window).scrollTop();
 				
-				var scrolledSections = $('.section').map(function(){
+				var scrolledSections = $('section').map(function(){
 					if ($(this).offset().top < (currentScroll + 100)){
 						return $(this);
 					}
@@ -342,13 +342,13 @@
 					
 					var yMovement = getYmovement(currentSection);
 					
-					$('.section.active').removeClass('active');
+					$('section.active').removeClass('active');
 					currentSection.addClass('active');
 				
 					var anchorLink  = currentSection.data('anchor');
-					$.isFunction( options.onLeave ) && options.onLeave.call( this, currentSection.index('.section'), yMovement);
+					$.isFunction( options.onLeave ) && options.onLeave.call( this, currentSection.index('section'), yMovement);
 
-					$.isFunction( options.afterLoad ) && options.afterLoad.call( this, anchorLink, (currentSection.index('.section') + 1));
+					$.isFunction( options.afterLoad ) && options.afterLoad.call( this, anchorLink, (currentSection.index('section') + 1));
 					
 					activateMenuElement(anchorLink);	
 					activateNavDots(anchorLink, 0);
@@ -394,7 +394,7 @@
 				var e = event.originalEvent;
 		
 				var touchMoved = false;
-				var activeSection = $('.section.active');
+				var activeSection = $('section.active');
 				var scrollable;
 
 				if (!isMoving && !slideMoving) { //if theres any #
@@ -485,7 +485,7 @@
 				var delta = Math.max(-1, Math.min(1,
 						(e.wheelDelta || -e.deltaY || -e.detail)));
 				var scrollable;
-				var activeSection = $('.section.active');
+				var activeSection = $('section.active');
 				
 				if (!isMoving) { //if theres any #
 				
@@ -531,11 +531,11 @@
 
 		
 		$.fn.fullpage.moveSectionUp = function(){
-			var prev = $('.section.active').prev('.section');
+			var prev = $('section.active').prev('section');
 			
 			//looping to the bottom if there's no more sections above
 			if (!prev.length && (options.loopTop || options.continuousVertical)) {
-				prev = $('.section').last();
+				prev = $('section').last();
 			}
 
 			if (prev.length) {
@@ -544,12 +544,12 @@
 		};
 
 		$.fn.fullpage.moveSectionDown = function (){
-			var next = $('.section.active').next('.section');
+			var next = $('section.active').next('section');
 
 			//looping to the top if there's no more sections below
 			if(!next.length &&
 				(options.loopBottom || options.continuousVertical)){
-				next = $('.section').first();
+				next = $('section').first();
 			}
 
 			if(next.length > 0 ||
@@ -565,7 +565,7 @@
 			if(isNaN(section)){
 				destiny = $('[data-anchor="'+section+'"]');
 			}else{
-				destiny = $('.section').eq( (section -1) );
+				destiny = $('section').eq( (section -1) );
 			}
 			
 			if (slide !== 'undefined'){
@@ -582,9 +582,9 @@
 			var dtop = dest.top;			
 			var yMovement = getYmovement(element);
 			var anchorLink  = element.data('anchor');
-			var sectionIndex = element.index('.section');
+			var sectionIndex = element.index('section');
 			var activeSlide = element.find('.slide.active');
-			var activeSection = $('.section.active');
+			var activeSection = $('section.active');
 
 			if(activeSlide.length){
 				var slideAnchorLink = activeSlide.data('anchor');
@@ -599,15 +599,15 @@
 				// Scrolling down
 				if (!isMovementUp) {
 					// Move all previous sections to after the active section
-					$(".section.active").after(activeSection.prevAll(".section").get().reverse());
+					$("section.active").after(activeSection.prevAll("section").get().reverse());
 				}
 				else { // Scrolling up
 					// Move all next sections to before the active section
-					$(".section.active").before(activeSection.nextAll(".section"));
+					$("section.active").before(activeSection.nextAll("section"));
 				}
 
 				// Maintain the displayed position (now that we changed the element order)
-				silentScroll($('.section.active').position().top);
+				silentScroll($('section.active').position().top);
 
 				// save for later the elements that still need to be reordered
 				var wrapAroundElements = activeSection;
@@ -618,7 +618,7 @@
 				yMovement = getYmovement(element);
 			}
 
-			var leavingSection = activeSection.index('.section') + 1;
+			var leavingSection = activeSection.index('section') + 1;
 			
 			element.addClass('active').siblings().removeClass('active');
 			
@@ -647,13 +647,13 @@
 				}
 
 				if (isMovementUp) {
-					$('.section:first').before(wrapAroundElements);
+					$('section:first').before(wrapAroundElements);
 				}
 				else {
-					$('.section:last').after(wrapAroundElements);
+					$('section:last').after(wrapAroundElements);
 				}
 
-				silentScroll($('.section.active').position().top);
+				silentScroll($('section.active').position().top);
 			};
 
 
@@ -761,12 +761,12 @@
 
 				//left
 				case 37:
-					$('.section.active').find('.controlArrow.prev:visible').trigger('click');
+					$('section.active').find('.controlArrow.prev:visible').trigger('click');
 					break;
 
 				//right
 				case 39:
-					$('.section.active').find('.controlArrow.next:visible').trigger('click');
+					$('section.active').find('.controlArrow.next:visible').trigger('click');
 					break;
 
 				default:
@@ -779,7 +779,7 @@
 		$(document).on('click', '#fullPage-nav a', function(e){
 			e.preventDefault();
 			var index = $(this).parent().index();
-			scrollPage($('.section').eq(index));
+			scrollPage($('section').eq(index));
 		});
 		
 		//navigation tooltips 
@@ -807,14 +807,14 @@
 		/**
 		 * Scrolling horizontally when clicking on the slider controls.
 		 */
-		$('.section').on('click', '.controlArrow', function() {
+		$('section').on('click', '.controlArrow', function() {
 			//not that fast my friend! :)
 			if (slideMoving) {
 				return;
 			}
 			slideMoving = true;
 
-			var slides = $(this).closest('.section').find('.slides');
+			var slides = $(this).closest('section').find('.slides');
 			var currentSlide = slides.find('.slide.active');
 			var destiny = null;
 
@@ -841,10 +841,10 @@
 		/**
 		 * Scrolling horizontally when clicking on the slider controls.
 		 */
-		$('.section').on('click', '.toSlide', function(e) {
+		$('section').on('click', '.toSlide', function(e) {
 			e.preventDefault();
 			
-			var slides = $(this).closest('.section').find('.slides');
+			var slides = $(this).closest('section').find('.slides');
 			var currentSlide = slides.find('.slide.active');
 			var destiny = null;
 			
@@ -862,8 +862,8 @@
 			var destinyPos = destiny.position();
 			var slidesContainer = slides.find('.slidesContainer').parent();
 			var slideIndex = destiny.index();
-			var section = slides.closest('.section');
-			var sectionIndex = section.index('.section');
+			var section = slides.closest('section');
+			var sectionIndex = section.index('section');
 			var anchorLink = section.data('anchor');
 			var slidesNav = section.find('.fullPage-slidesNav');
 			var slideAnchor = destiny.data('anchor');
@@ -973,7 +973,7 @@
 				resizeMe(windowsHeight, windowsWidth);
 			}
 
-			$('.section').each(function(){
+			$('section').each(function(){
 				var scrollHeight = windowsHeight - parseInt($(this).css('padding-bottom')) - parseInt($(this).css('padding-top'));
 			
 				//adjusting the height of the table-cell for IE and Firefox
@@ -1006,12 +1006,12 @@
 			});
 
 			//adjusting the position for the current section
-			var destinyPos = $('.section.active').position();
+			var destinyPos = $('section.active').position();
 
-			var activeSection = $('.section.active');
+			var activeSection = $('section.active');
 			
 			//isn't it the first section?
-			if(activeSection.index('.section')){
+			if(activeSection.index('section')){
 				scrollPage(activeSection);
 			}
 
@@ -1097,8 +1097,8 @@
 		* from the current section.
 		*/
 		function getYmovement(destiny){
-			var fromIndex = $('.section.active').index('.section');
-			var toIndex = destiny.index('.section');
+			var fromIndex = $('section.active').index('section');
+			var toIndex = destiny.index('section');
 			
 			if(fromIndex > toIndex){
 				return 'up';
@@ -1123,7 +1123,7 @@
 			element.css('overflow', 'hidden');
 			
 			//in case element is a slide
-			var section = element.closest('.section');
+			var section = element.closest('section');
 			var scrollable = element.find('.scrollable');
 
 			//if there was scroll, the contentHeight will be the one in the scrollable section
@@ -1182,7 +1182,7 @@
 			if(options.paddingTop || options.paddingBottom){
 				var section = element;
 				if(!section.hasClass('section')){
-					section = element.closest('.section');
+					section = element.closest('section');
 				}
 			
 				var paddings = parseInt(section.css('padding-top')) + parseInt(section.css('padding-bottom'));
@@ -1213,7 +1213,7 @@
 			if(isNaN(destiny)){
 				var section = $('[data-anchor="'+destiny+'"]');
 			}else{
-				var section = $('.section').eq( (destiny -1) );
+				var section = $('section').eq( (destiny -1) );
 			}
 
 
@@ -1309,7 +1309,7 @@
 		*/
 		$(document).on('click', '.fullPage-slidesNav a', function(e){
 			e.preventDefault();
-			var slides = $(this).closest('.section').find('.slides');		
+			var slides = $(this).closest('section').find('.slides');		
 			var destiny = slides.find('.slide').eq($(this).closest('li').index());
 			
 			landscapeScroll(slides, destiny);
